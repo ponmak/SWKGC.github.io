@@ -1,5 +1,5 @@
 
-const apiKey = 'AIzaSyAjj0h4sM-Tc6tesxKQswsyvHOfhJuqrlU';
+const apiKey = secrets.GoogleApiKey;
 const spreadsheetId = '1RqsCTN9Nng_x5N24isUISlDN7ARiLMmhA1f2UHPRH7w';
 const range = 'Sheet1!A2:Z'; // Adjust the range according to your data location
 
