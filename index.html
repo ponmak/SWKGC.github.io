@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data from Google Sheet</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="cards-container"></div>
+    
+    <script>
+        // Step 4: Fetch data from Google Sheet using JavaScript
+        // Replace 'YOUR_API_KEY' with your actual Google Sheets API key
+        const apiKey = 'AIzaSyB24__oy_sF0SbY7iyl_0iAfKxsAFXCeZo';
+        const spreadsheetId = '1bM8ZrvGe5UmBOdH8g704nzI88xm_GKHttehDgkHFOKM';
+        const range = 'Sheet1!A2:D'; // Adjust the range according to your data location
+        
+        $.ajax({
+            url: `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                const dataArray = data.values;
+                if (dataArray.length > 0) {
+                    // Step 5: Generate cards and populate with data
+                    const cardsContainer = $('#cards-container');
+                    dataArray.forEach(row => {
+                        const [name, birthDate, word, education] = row;
+                        const card = `
+                            <div class="card">
+                                <h2>${name}</h2>
+                                <p><strong>Birth Date:</strong> ${birthDate}</p>
+                                <p><strong>Word:</strong> ${word}</p>
+                                <p><strong>Education:</strong> ${education}</p>
+                            </div>
+                        `;
+                        cardsContainer.append(card);
+                    });
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    </script>
+
+    <style>
+        /* Step 3: CSS for cards */
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</body>
+</html>
